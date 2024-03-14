@@ -2,6 +2,7 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.label import Label
 from backend import login_user
 
 # Load the KV file
@@ -12,6 +13,7 @@ class MyApp(App):
         sm = ScreenManager()
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(RegistrationScreen(name='registration'))
+        sm.add_widget(DashboardScreen(name='dashboard'))
         return sm
     
     def backend_login(self, email, password):
@@ -27,8 +29,8 @@ class LoginScreen(Screen):
         print("Password:", password)
 
         if authenticated:
-            #self.sm.current = 'home'
-            print("redirect to dashboard")
+            app = App.get_running_app().root
+            app.current = 'dashboard'
 
 
 class RegistrationScreen(Screen):
@@ -48,6 +50,25 @@ class RegistrationScreen(Screen):
         # Navigate to login screen
         app = App.get_running_app().root
         app.current = 'login'
+
+
+class DashboardScreen(Screen):
+    def on_enter(self):
+        """
+        Called when the screen is displayed.
+        """
+        # Build a label with some text.
+        label = Label(text="Welcome to the Dashboard!")
+
+        # Add the label to the screen's layout.
+        self.add_widget(label)
+
+    def on_leave(self):
+        """
+        Called when the screen is no longer displayed.
+        """
+        # Remove all the widgets from the screen.
+        self.clear_widgets()
 
 
 
