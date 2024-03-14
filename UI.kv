@@ -1,3 +1,109 @@
+<DashboardScreen>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0.3, 1  # Dark blue color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+        size_hint_y: None
+        height: self.minimum_height
+        pos_hint: {'top': 1}
+
+        Label:
+            text: "Dashboard"
+            font_size: "24sp"
+            bold: True
+            size_hint_y: None
+            height: dp(40)
+
+        Button:
+            text: "Logout"
+            size_hint_y: None
+            height: dp(40)
+            on_press: root.logout()
+
+<RegistrationScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.3, 0, 0, 1  # Dark red color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+        size_hint_y: None
+        height: self.minimum_height
+        pos_hint: {'top': 1}
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: self.minimum_height
+            spacing: dp(10)
+            pos_hint: {'center_x': .5}
+
+            Label:
+                text: "Registration"
+                font_size: "24sp"
+                bold: True
+                size_hint_y: None
+                height: dp(40)
+
+            TextInput:
+                id: reg_username_input
+                hint_text: "Username"
+                multiline: False
+                size_hint_y: None
+                height: dp(40)
+
+            TextInput:
+                id: reg_email_input
+                hint_text: "Email"
+                multiline: False
+                size_hint_y: None
+                height: dp(40)
+
+            TextInput:
+                id: reg_password_input
+                hint_text: "Password"
+                multiline: False
+                password: True
+                size_hint_y: None
+                height: dp(40)
+
+            TextInput:
+                id: reg_confirm_password_input
+                hint_text: "Confirm Password"
+                multiline: False
+                password: True
+                size_hint_y: None
+                height: dp(40)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(140)  # 80 + 60
+            spacing: dp(10)
+            pos_hint: {'center_x': .5}
+
+            Button:
+                id: register_button
+                text: "Register"
+                size_hint_y: None
+                height: dp(40)
+                on_press: root.register(reg_username_input.text, reg_email_input.text, reg_password_input.text, reg_confirm_password_input.text)
+
+            Button:
+                text: "Register with Google"
+                size_hint_y: None
+                height: dp(40)
+                on_press: root.register_google()
 
 <LoginScreen>:  
     canvas.before:
@@ -61,7 +167,6 @@
             height: dp(60)
             spacing: dp(10)
             pos_hint: {'center_x': .5}
-            padding: dp(10), 0, 0, 0  # Add padding to the bottom of the BoxLayout
 
             Button:
                 id: login_google_button
@@ -69,4 +174,17 @@
                 size_hint_y: None
                 height: dp(40)
                 on_press: root.login_with_google()
-            
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: dp(40)
+            spacing: dp(10)
+            pos_hint: {'center_x': .5}
+
+            Button:
+                text: "Don't have an account? Register"
+                size_hint_y: None
+                height: dp(40)
+                on_press: app.root.current = "registration"  # Change the root screen to "register"
+
