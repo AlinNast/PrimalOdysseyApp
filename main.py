@@ -3,7 +3,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.label import Label
-from backend import login_user
+import service
+
 
 # Load the KV file
 Builder.load_file("UI.kv")
@@ -16,16 +17,28 @@ class MyApp(App):
         sm.add_widget(DashboardScreen(name='dashboard'))
         return sm
     
-    def backend_login(self, email, password):
-        return login_user(email, password)
+    def login_with_email(self, email, password):
+        response = service.login_with_email(email, password)
+        return response
+    
+    def login_with_username(self, username, password):
+        response = service.login_with_username(username, password)
+        return response
 
 class LoginScreen(Screen):
     def login(self, email, password):
         app = App.get_running_app()
-        authenticated = app.backend_login(email, password)
+        if '@' in email:  # Check if '@' character exists in the input_text
+            response = app.login_with_email(email, password)
+            print(response)
+            authenticated = response
+        else:
+            response = app.login_with_username(email, password)
+            print(response)
+            authenticated = response
         print("Login successful:", authenticated)
         print("Login credentials:")
-        print("Email:", email)
+        print("Email/Username:", email)
         print("Password:", password)
 
         if authenticated:
