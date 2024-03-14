@@ -17,6 +17,7 @@ class MyApp(App):
         sm.add_widget(DashboardScreen(name='dashboard'))
         return sm
     
+    # Controller functions
     def login_with_email(self, email, password):
         response = service.login_with_email(email, password)
         return response
@@ -46,6 +47,7 @@ class LoginScreen(Screen):
             app.current = 'dashboard'
 
 
+# Crud operations not implemented for registration
 class RegistrationScreen(Screen):
     def register(self,username, email, password, confirm_password):
         # Basic validation

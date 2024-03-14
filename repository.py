@@ -1,4 +1,4 @@
-from DBImitation.models import User
+from DBImitation.models import User, LearningTree, UserLearningTree
 
 
 def get_user_by_id(id):
@@ -22,4 +22,14 @@ class DummyRepository:
         self.users = [
             User(1, "test", "test@example.com", 'test'),
             User(2, "doe", "doe@example.com",'doe')
+        ]
+        
+        self.learning_trees = [
+            LearningTree(1, "FirstLearningTree", "This is the first learning tree description placeholder", "no image so far"),
+            LearningTree(2, "SecondLearningTree", "This is the second learning tree description placeholder", "no image so far"),
+        ]
+        
+        self.user_learning_trees = [
+            UserLearningTree(1, 1, 1),
+            UserLearningTree(2, 1, 2),
         ]
