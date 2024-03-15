@@ -20,7 +20,7 @@ def login_with_email(email, password):
         return 'User does not exist'
     
     if user.password == password:
-        return user.token
+        return user
     else:
         return False
 
@@ -42,6 +42,6 @@ def login_with_username(username, password):
         return 'User does not exist'
     
     if user.password == password:
-        return user.token
+        return user
     else:
         return False

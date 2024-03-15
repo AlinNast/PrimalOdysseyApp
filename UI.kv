@@ -21,11 +21,25 @@
             size_hint_y: None
             height: dp(40)
 
-        Button:
-            text: "Logout"
+    ScrollView:
+        y: root.height - self.height - dp(50)  # Offset the ScrollView to leave room for the title
+
+        GridLayout:
+            color: rgba(1,1,1)
+            id: learning_trees_layout
+            cols: 1
             size_hint_y: None
-            height: dp(40)
-            on_press: root.logout()
+            height: self.minimum_height
+            row_default_height: dp(60)  # Set default height for each row
+            padding: dp(10)  # Add padding to the top of the GridLayout
+            spacing: dp(10)  # Add spacing between children widgets
+            Button:
+                
+                size_hint_y: None
+                height: dp(40)
+
+
+
 
 <RegistrationScreen>:
     canvas.before:
