@@ -82,3 +82,22 @@ def get_lessons_by_learning_tree_id(learning_tree_id):
     else:
         return lessons
 
+
+
+
+def get_lesson_by_id(lesson_id):
+    """
+    Function that retrieves a lesson from the repository based on its lesson id
+    
+    Args:
+        lesson_id (int): The id of the lesson
+    
+    Returns:
+        Lesson: The lesson object with the given id, or None if it does not exist
+    """
+    lesson = repository.get_lesson_by_id(lesson_id)
+    if lesson is None:
+        return None
+    else:
+        return lesson
+

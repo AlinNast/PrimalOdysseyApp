@@ -1,3 +1,35 @@
+<LessonScreen>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0.3, 1  # Dark blue color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        id: lesson_layout
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+        size_hint_y: None
+        height: self.minimum_height
+        pos_hint: {'top': 1}
+
+        Label:
+            id: lesson_title
+            text: "Lesson Title"  # Placeholder for the lesson title
+            font_size: "24sp"
+            bold: True
+            size_hint_y: None
+            height: dp(40)
+
+        Label:
+            id: lesson_description
+            text: "Lesson Description"  # Placeholder for the lesson description
+            size_hint_y: None
+            height: dp(200)  # Adjust height as needed
+
+
 <LessonTreeScreen>:
     BoxLayout:
         orientation: "vertical"

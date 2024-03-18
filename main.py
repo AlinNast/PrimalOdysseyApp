@@ -25,6 +25,7 @@ class MyApp(App):
         sm.add_widget(RegistrationScreen(name='registration'))
         sm.add_widget(DashboardScreen(name='dashboard'))
         sm.add_widget(LessonTreeScreen(name='lesson_tree'))
+        sm.add_widget(LessonScreen(name='lesson'))
         return sm
     
     # Controller functions
@@ -66,6 +67,19 @@ class MyApp(App):
         lessons = service.get_lessons_by_learning_tree_id(learning_tree_id)
         return lessons
 
+    
+    def get_lesson(self, lesson_id):
+        """
+        Function that retrieves the lesson from the service given the lesson id
+        
+        Args:
+            lesson_id (int): The id of the lesson
+        
+        Returns:
+            Lesson: The lesson associated with the lesson id
+        """
+        lesson = service.get_lesson_by_id(lesson_id)
+        return lesson
 
 
 class LoginScreen(Screen):
@@ -148,7 +162,6 @@ class DashboardScreen(Screen):
         app = App.get_running_app()
         app.selected_learning_tree_id = instance.learning_tree_id
         app.root.current = 'lesson_tree'
-        print(app.selected_learning_tree_id)
 
 
 class LessonTreeScreen(Screen):
@@ -163,12 +176,13 @@ class LessonTreeScreen(Screen):
         app = App.get_running_app()
         selected_learning_tree_id = app.selected_learning_tree_id  # Assuming you have a way to get the selected learning tree ID
         lessons = app.get_lessons_for_learning_tree(selected_learning_tree_id)
-        print("lessons", lessons)
         if lessons:
             # If lessons are available, create buttons for each lesson
             for lesson in lessons:
-                button = Button(text=lesson.title, size_hint_y=None, height=dp(40))
-                self.ids.lessons_layout.add_widget(button)
+                lesson_button = Button(text=lesson.title, size_hint_y=None, height=dp(40))
+                lesson_button.bind(on_press=self.on_lesson_pressed)  # Bind the on_press event
+                lesson_button.lesson_id = lesson.id  # Assign lesson ID to button
+                self.ids.lessons_layout.add_widget(lesson_button)
         else:
             # If no lessons are available, display a message
             label = Label(text="No lessons available for this learning tree", size_hint_y=None, height=dp(40))
@@ -180,6 +194,43 @@ class LessonTreeScreen(Screen):
         """
         # Remove all the widgets from the layout
         self.ids.lessons_layout.clear_widgets()
+        
+    
+    def on_lesson_pressed(self, instance):
+        """
+        Callback function to handle lesson button press.
+        """
+        app = App.get_running_app()
+        app.selected_lesson_id = instance.lesson_id
+        app.root.current = 'lesson'
+        
+
+
+
+class LessonScreen(Screen):
+    def on_enter(self):
+        """
+        Called when the screen is displayed.
+        """
+        # Clear the existing widgets from the layout
+        self.ids.lesson_layout.clear_widgets()
+
+        # Get the selected lesson id from the app
+        app = App.get_running_app()
+        selected_lesson_id = app.selected_lesson_id
+
+        # Get the details of the selected lesson
+        selected_lesson = app.get_lesson(selected_lesson_id)
+        print(selected_lesson.title)
+
+    # Create and add Label widgets for the title and description
+        title_label = Label(text=selected_lesson.title, font_size="24sp", bold=True, size_hint_y=None, height=dp(40))
+        description_label = Label(text=selected_lesson.description, size_hint_y=None, height=dp(200))
+
+    # Add the Label widgets to the lesson_layout
+        self.ids.lesson_layout.add_widget(title_label)
+        self.ids.lesson_layout.add_widget(description_label)
+
 
 class UserData():
     def __init__(self):

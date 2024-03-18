@@ -33,6 +33,11 @@ def get_lessons_by_learning_tree_id(learning_tree_id):
     return lessons
 
 
+def get_lesson_by_id(lesson_id):
+    for lesson in DummyRepository().lessons:
+        if lesson.id == lesson_id:
+            return lesson
+
 
 class DummyRepository:
     def __init__(self):
