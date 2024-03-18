@@ -51,6 +51,21 @@ class MyApp(App):
         """
         user_learning_trees = service.get_user_learning_trees(user_id)
         return user_learning_trees
+    
+    
+    def get_lessons_for_learning_tree(self, learning_tree_id):
+        """
+        Function that retrieves the list of lessons from the service given the learning tree id
+        
+        Args:
+            learning_tree_id (int): The id of the learning tree
+        
+        Returns:
+            list: A list of lessons associated with the learning tree id
+        """
+        lessons = service.get_lessons_by_learning_tree_id(learning_tree_id)
+        return lessons
+
 
 
 class LoginScreen(Screen):
@@ -146,19 +161,18 @@ class LessonTreeScreen(Screen):
 
         # Get the lessons associated with the selected learning tree
         app = App.get_running_app()
-        #selected_learning_tree_id = app.selected_learning_tree_id  # Assuming you have a way to get the selected learning tree ID
-        #lessons = app.get_lessons_for_learning_tree(selected_learning_tree_id)
-
-        #if lessons:
+        selected_learning_tree_id = app.selected_learning_tree_id  # Assuming you have a way to get the selected learning tree ID
+        lessons = app.get_lessons_for_learning_tree(selected_learning_tree_id)
+        print("lessons", lessons)
+        if lessons:
             # If lessons are available, create buttons for each lesson
-            #for lesson in lessons:
-                #button = Button(text=lesson.title, size_hint_y=None, height=dp(40))
-                #self.ids.lessons_layout.add_widget(button)
-        #else:
+            for lesson in lessons:
+                button = Button(text=lesson.title, size_hint_y=None, height=dp(40))
+                self.ids.lessons_layout.add_widget(button)
+        else:
             # If no lessons are available, display a message
-        label = Label(text="No lessons available for this learning tree", size_hint_y=None, height=dp(40))
-        print(app.selected_learning_tree_id)
-        self.ids.lessons_layout.add_widget(label)
+            label = Label(text="No lessons available for this learning tree", size_hint_y=None, height=dp(40))
+            self.ids.lessons_layout.add_widget(label)
 
     def on_leave(self):
         """

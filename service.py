@@ -64,3 +64,21 @@ def get_user_learning_trees(user_id):
         return user_learning_trees
     
 
+
+
+def get_lessons_by_learning_tree_id(learning_tree_id):
+    """
+    Function that retrieves the list of lessons from the repository and returns it given the learning tree id
+    
+    Args:
+        learning_tree_id (int): The id of the learning tree
+    
+    Returns:
+        list: A list of lessons associated with the learning tree id
+    """
+    lessons = repository.get_lessons_by_learning_tree_id(learning_tree_id)
+    if len(lessons) == 0:
+        return None
+    else:
+        return lessons
+

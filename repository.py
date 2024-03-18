@@ -25,6 +25,14 @@ def get_user_learning_trees(user_id):
     return user_learning_trees
 
 
+def get_lessons_by_learning_tree_id(learning_tree_id):
+    lessons = []
+    for lesson in DummyRepository().lessons:
+        if lesson.learning_tree_id == learning_tree_id:
+            lessons.append(lesson)
+    return lessons
+
+
 
 class DummyRepository:
     def __init__(self):

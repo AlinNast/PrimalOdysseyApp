@@ -14,13 +14,19 @@
             size_hint_y: None
             height: dp(40)
 
-        ScrollView:
-            GridLayout:
-                id: lessons_layout
-                cols: 1
+    ScrollView:
+        y: root.height - self.height - dp(50)  # Offset the ScrollView to leave room for the title
+
+        GridLayout:
+            id: lessons_layout
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: dp(60)  # Set default height for each row
+
+            Button:
                 size_hint_y: None
-                height: self.minimum_height
-                row_default_height: dp(60)  # Set default height for each row
+                height: dp(40)
 
 <DashboardScreen>:
     canvas.before:
@@ -57,11 +63,10 @@
             row_default_height: dp(60)  # Set default height for each row
             padding: dp(10)  # Add padding to the top of the GridLayout
             spacing: dp(10)  # Add spacing between children widgets
+
             Button:
-                
                 size_hint_y: None
                 height: dp(40)
-                #on_press: root.on_learning_tree_button_press(1)  # Pass the learning tree ID
 
 
 
