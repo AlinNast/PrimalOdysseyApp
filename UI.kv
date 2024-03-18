@@ -1,3 +1,27 @@
+<LessonTreeScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+        size_hint_y: None
+        height: self.minimum_height
+        pos_hint: {'top': 1}
+
+        Label:
+            text: "Lessons"
+            font_size: "24sp"
+            bold: True
+            size_hint_y: None
+            height: dp(40)
+
+        ScrollView:
+            GridLayout:
+                id: lessons_layout
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: dp(60)  # Set default height for each row
+
 <DashboardScreen>:
     canvas.before:
         Color:
@@ -37,6 +61,8 @@
                 
                 size_hint_y: None
                 height: dp(40)
+                #on_press: root.on_learning_tree_button_press(1)  # Pass the learning tree ID
+
 
 
 

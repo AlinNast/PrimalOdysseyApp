@@ -23,3 +23,11 @@ class UserLearningTree(object):
         self.id = id
         self.user_id = user_id
         self.learning_tree_id = learning_tree_id
+        
+class Lesson(object):
+    def __init__(self, id, learning_tree_id, title, description, image):
+        self.id = id
+        self.learning_tree_id = learning_tree_id
+        self.title = title
+        self.description = description
+        self.image = image

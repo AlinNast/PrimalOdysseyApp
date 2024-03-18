@@ -24,6 +24,7 @@ class MyApp(App):
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(RegistrationScreen(name='registration'))
         sm.add_widget(DashboardScreen(name='dashboard'))
+        sm.add_widget(LessonTreeScreen(name='lesson_tree'))
         return sm
     
     # Controller functions
@@ -129,9 +130,42 @@ class DashboardScreen(Screen):
         """
         Callback function to handle learning tree button press.
         """
-        learning_tree_id = instance.learning_tree_id  # Get the ID from the button's attribute
-        print("Learning tree ID:", learning_tree_id)
+        app = App.get_running_app()
+        app.selected_learning_tree_id = instance.learning_tree_id
+        app.root.current = 'lesson_tree'
+        print(app.selected_learning_tree_id)
 
+
+class LessonTreeScreen(Screen):
+    def on_enter(self):
+        """
+        Called when the screen is displayed.
+        """
+        # Clear the existing widgets from the layout
+        self.ids.lessons_layout.clear_widgets()
+
+        # Get the lessons associated with the selected learning tree
+        app = App.get_running_app()
+        #selected_learning_tree_id = app.selected_learning_tree_id  # Assuming you have a way to get the selected learning tree ID
+        #lessons = app.get_lessons_for_learning_tree(selected_learning_tree_id)
+
+        #if lessons:
+            # If lessons are available, create buttons for each lesson
+            #for lesson in lessons:
+                #button = Button(text=lesson.title, size_hint_y=None, height=dp(40))
+                #self.ids.lessons_layout.add_widget(button)
+        #else:
+            # If no lessons are available, display a message
+        label = Label(text="No lessons available for this learning tree", size_hint_y=None, height=dp(40))
+        print(app.selected_learning_tree_id)
+        self.ids.lessons_layout.add_widget(label)
+
+    def on_leave(self):
+        """
+        Called when the screen is no longer displayed.
+        """
+        # Remove all the widgets from the layout
+        self.ids.lessons_layout.clear_widgets()
 
 class UserData():
     def __init__(self):
