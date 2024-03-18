@@ -36,6 +36,21 @@ class MyApp(App):
         response = service.login_with_username(username, password)
         self.user_data.set_user_id(response.id)
         return response
+    
+    
+    def get_user_learning_trees(self, user_id):
+        """
+        Function that retrieves the learning trees a user is assigned to based on their user id
+        
+        Args:
+            user_id (int): The id of the user
+        
+        Returns:
+            list: A list of learning trees the user is assigned to
+        """
+        user_learning_trees = service.get_user_learning_trees(user_id)
+        return user_learning_trees
+
 
 class LoginScreen(Screen):
     def login(self, email, password):
@@ -86,15 +101,17 @@ class DashboardScreen(Screen):
         # Clear the existing widgets from the layout
         self.ids.learning_trees_layout.clear_widgets()
 
-        # Get the learning trees associated with the user (replace with actual logic)
-        # For demonstration purposes, let's assume user_learning_trees is a list of learning trees
-        user_learning_trees = ["Python Basics", "Data Structures"]
-        print(user_learning_trees)
+        # Get the user's learning trees
+        app = App.get_running_app()
+        user_learning_trees = app.get_user_learning_trees(app.user_data.get_user_id())
 
         if user_learning_trees:
             # If user is associated with learning trees, create boxes for each learning tree
             for learning_tree in user_learning_trees:
-                box = Button(text=learning_tree, size_hint_y=None, height=dp(40))
+                box = Button(text=learning_tree.name, size_hint_y=None, height=dp(40))
+                box.bind(on_press=self.on_learning_tree_pressed)  # Bind the on_press event
+                box.learning_tree_id = learning_tree.id  # Assign learning tree ID to button
+                
                 self.ids.learning_trees_layout.add_widget(box)
         else:
             # If user is not associated with any learning trees, display a message
@@ -107,6 +124,13 @@ class DashboardScreen(Screen):
         """
         # Remove all the widgets from the layout
         self.ids.learning_trees_layout.clear_widgets()
+        
+    def on_learning_tree_pressed(self, instance):
+        """
+        Callback function to handle learning tree button press.
+        """
+        learning_tree_id = instance.learning_tree_id  # Get the ID from the button's attribute
+        print("Learning tree ID:", learning_tree_id)
 
 
 class UserData():

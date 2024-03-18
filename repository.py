@@ -15,6 +15,15 @@ def get_user_by_username(username):
     for user in DummyRepository().users:
         if user.username == username:
             return user
+        
+
+def get_user_learning_trees(user_id):
+    user_learning_trees = []
+    for user_learning_tree in DummyRepository().user_learning_trees:
+        if user_learning_tree.user_id == user_id:
+            user_learning_trees.append(DummyRepository().learning_trees[user_learning_tree.learning_tree_id-1])
+    return user_learning_trees
+
 
 
 class DummyRepository:

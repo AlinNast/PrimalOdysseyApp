@@ -45,3 +45,22 @@ def login_with_username(username, password):
         return user
     else:
         return False
+
+
+def get_user_learning_trees(user_id):
+    """
+    Function that retrieves the learning trees a user is assigned to based on their user id
+    
+    Args:
+        user_id (int): The id of the user
+    
+    Returns:
+        list: A list of learning trees the user is assigned to
+    """
+    user_learning_trees = repository.get_user_learning_trees(user_id)
+    if len(user_learning_trees) == 0:
+        return None
+    else:
+        return user_learning_trees
+    
+
