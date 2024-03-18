@@ -34,7 +34,8 @@ class MyApp(App):
         
     
     def open_menu(self):
-        print("open menu")
+        app = App.get_running_app()
+        app.root.current = 'menu'
     
     # Controller functions
     def login_with_email(self, email, password):
@@ -239,7 +240,20 @@ class LessonScreen(Screen):
 
 
 class MenuScreen(Screen):
-    pass
+    def on_enter(self):
+        """
+        Called when the screen is displayed.
+        """
+        self.ids.menu_layout.transition = 'slide_right'
+        self.ids.menu_layout.transition_duration = 0.2
+        
+
+    def on_menu_button_pressed(self, instance):
+        """
+        Callback function to handle menu button press.
+        """
+        app = App.get_running_app()
+        app.root.switch_screen(instance.text.lower())
 
 class UserData():
     def __init__(self):

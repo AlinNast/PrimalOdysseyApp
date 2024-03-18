@@ -1,4 +1,33 @@
+<MenuScreen>:
+    BoxLayout:
+        id: menu_layout
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+        size_hint_y: None
+        height: self.minimum_height
+        pos_hint: {'top': 1}
 
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: self.minimum_height
+            spacing: dp(10)
+            pos_hint: {'center_x': .5}
+
+            Button:
+                text: "User Profile"
+                font_size: "24sp"
+                size_hint_y: None
+                height: dp(40)
+                on_press: app.root.current("profile")
+
+            Button:
+                text: "Dashboard"
+                font_size: "24sp"
+                size_hint_y: None
+                height: dp(40)
+                on_press: app.root.current("dashboard")
 <LessonScreen>:
     canvas.before:
         Color:
