@@ -1,3 +1,4 @@
+
 <LessonScreen>:
     canvas.before:
         Color:
@@ -5,12 +6,24 @@
         Rectangle:
             pos: self.pos
             size: self.size
+    BoxLayout:
+        id: header
+        size_hint_y: None
+        height: dp(60)
+        padding: dp(10), 0, 0, 0  # Adjust padding to move the button to the top left corner
+        pos_hint: {'top': 1}
+        Button:
+            text: "Menu"
+            size_hint: None, None
+            size: dp(100), dp(40)
+            pos: 0, 0  # Move the button to the top left corner
+            on_press: app.open_menu()
 
     BoxLayout:
         id: lesson_layout
         orientation: "vertical"
-        padding: dp(20)
-        spacing: dp(10)
+        padding: dp(50)
+        spacing: dp(40)  # Increase spacing between lesson title and description
         size_hint_y: None
         height: self.minimum_height
         pos_hint: {'top': 1}
@@ -28,10 +41,24 @@
             text: "Lesson Description"  # Placeholder for the lesson description
             size_hint_y: None
             height: dp(200)  # Adjust height as needed
-
+            padding: dp(20), 0, 0, 0  # Add padding to the top of the lesson description label
 
 <LessonTreeScreen>:
     BoxLayout:
+        id: header
+        size_hint_y: None
+        height: dp(60)
+        padding: dp(10), 0, 0, 0  # Adjust padding to move the button to the top left corner
+        pos_hint: {'top': 1}
+        Button:
+            text: "Menu"
+            size_hint: None, None
+            size: dp(100), dp(40)
+            pos: 0, 0  # Move the button to the top left corner
+            on_press: app.open_menu()
+
+    BoxLayout:
+
         orientation: "vertical"
         padding: dp(20)
         spacing: dp(10)
@@ -69,6 +96,19 @@
             size: self.size
 
     BoxLayout:
+        id: header
+        size_hint_y: None
+        height: dp(60)
+        padding: dp(10), 0, 0, 0  # Adjust padding to move the button to the top left corner
+        pos_hint: {'top': 1}
+        Button:
+            text: "Menu"
+            size_hint: None, None
+            size: dp(100), dp(40)
+            pos: 0, 0  # Move the button to the top left corner
+            on_press: app.open_menu()
+    BoxLayout:
+
         orientation: "vertical"
         padding: dp(20)
         spacing: dp(10)

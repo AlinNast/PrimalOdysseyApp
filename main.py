@@ -1,11 +1,12 @@
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scrollview import ScrollView
+from kivy.uix.dropdown import DropDown
 from kivy.metrics import dp
 import service
 
@@ -26,7 +27,14 @@ class MyApp(App):
         sm.add_widget(DashboardScreen(name='dashboard'))
         sm.add_widget(LessonTreeScreen(name='lesson_tree'))
         sm.add_widget(LessonScreen(name='lesson'))
+        sm.add_widget(MenuScreen(name='menu'))
+
+        
         return sm
+        
+    
+    def open_menu(self):
+        print("open menu")
     
     # Controller functions
     def login_with_email(self, email, password):
@@ -206,7 +214,6 @@ class LessonTreeScreen(Screen):
         
 
 
-
 class LessonScreen(Screen):
     def on_enter(self):
         """
@@ -221,16 +228,18 @@ class LessonScreen(Screen):
 
         # Get the details of the selected lesson
         selected_lesson = app.get_lesson(selected_lesson_id)
-        print(selected_lesson.title)
 
-    # Create and add Label widgets for the title and description
-        title_label = Label(text=selected_lesson.title, font_size="24sp", bold=True, size_hint_y=None, height=dp(40))
-        description_label = Label(text=selected_lesson.description, size_hint_y=None, height=dp(200))
+        # Create and add Label widgets for the title and description
+        title_label = Label(text=selected_lesson.title, font_size="24sp", bold=True)
+        description_label = Label(text=selected_lesson.description)
 
-    # Add the Label widgets to the lesson_layout
+        # Add the Label widgets to the lesson_layout
         self.ids.lesson_layout.add_widget(title_label)
         self.ids.lesson_layout.add_widget(description_label)
 
+
+class MenuScreen(Screen):
+    pass
 
 class UserData():
     def __init__(self):
