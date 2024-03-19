@@ -29,6 +29,7 @@ class MyApp(App):
         sm.add_widget(LessonScreen(name='lesson'))
         sm.add_widget(MenuScreen(name='menu'))
         sm.add_widget(ProfileScreen(name='profile'))
+        sm.add_widget(BaseScreen(name='base'))
 
         
         return sm
@@ -305,6 +306,13 @@ class ProfileScreen(Screen):
         self.ids.profile_layout.add_widget(username_label)
         self.ids.profile_layout.add_widget(email_label)
 
+
+class BaseScreen(Screen):
+    def on_enter(self):
+        """
+        Called when the screen is displayed.
+        """
+        pass
 
 class UserData():
     def __init__(self):

@@ -1,4 +1,33 @@
 
+
+# Green:
+
+# RGB: (76, 175, 80) - This is a vibrant green color reminiscent of lush vegetation.
+# Brown:
+
+# RGB: (121, 85, 72) - A warm brown color resembling soil or tree bark.
+# Earthy Tone:
+
+# RGB: (190, 144, 111) - This color evokes the earthy hues of fallen leaves or rocks.
+# Accent Green:
+
+# RGB: (0, 150, 136) - A refreshing shade of green for highlighting important elements.
+# Accent Blue:
+
+# RGB: (33, 150, 243) - A hint of blue reminiscent of clear skies or bodies of water, providing a calming effect.
+<BaseScreen>:
+    font_name: 'Open Sans'
+    font_size: 200
+    text_color: 0, 0, 0.4, 1
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.5, 0.2, 1.0  # base color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+
 <ProfileScreen>:
     canvas.before:
         Color:
@@ -192,163 +221,158 @@
 
 
 <RegistrationScreen>:
-    canvas.before:
-        Color:
-            rgba: 0.3, 0, 0, 1  # Dark red color
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    BoxLayout:
-        orientation: "vertical"
-        padding: dp(20)
-        spacing: dp(10)
-        size_hint_y: None
-        height: self.minimum_height
-        pos_hint: {'top': 1}
-
+    BaseScreen:
         BoxLayout:
             orientation: "vertical"
+            padding: dp(20)
+            spacing: dp(10)
             size_hint_y: None
             height: self.minimum_height
-            spacing: dp(10)
-            pos_hint: {'center_x': .5}
+            pos_hint: {'top': 1}
 
-            Label:
-                text: "Registration"
-                font_size: "24sp"
-                bold: True
+            BoxLayout:
+                orientation: "vertical"
                 size_hint_y: None
-                height: dp(40)
+                height: self.minimum_height
+                spacing: dp(10)
+                pos_hint: {'center_x': .5}
 
-            TextInput:
-                id: reg_username_input
-                hint_text: "Username"
-                multiline: False
+                Label:
+                    text: "Registration"
+                    font_size: "24sp"
+                    bold: True
+                    size_hint_y: None
+                    height: dp(40)
+
+                TextInput:
+                    id: reg_username_input
+                    hint_text: "Username"
+                    multiline: False
+                    size_hint_y: None
+                    height: dp(40)
+
+                TextInput:
+                    id: reg_email_input
+                    hint_text: "Email"
+                    multiline: False
+                    size_hint_y: None
+                    height: dp(40)
+
+                TextInput:
+                    id: reg_password_input
+                    hint_text: "Password"
+                    multiline: False
+                    password: True
+                    size_hint_y: None
+                    height: dp(40)
+
+                TextInput:
+                    id: reg_confirm_password_input
+                    hint_text: "Confirm Password"
+                    multiline: False
+                    password: True
+                    size_hint_y: None
+                    height: dp(40)
+
+            BoxLayout:
                 size_hint_y: None
-                height: dp(40)
+                height: dp(140)  # 80 + 60
+                spacing: dp(10)
+                pos_hint: {'center_x': .5}
 
-            TextInput:
-                id: reg_email_input
-                hint_text: "Email"
-                multiline: False
-                size_hint_y: None
-                height: dp(40)
+                Button:
+                    id: register_button
+                    text: "Register"
+                    size_hint_y: None
+                    height: dp(40)
+                    on_press: root.register(reg_username_input.text, reg_email_input.text, reg_password_input.text, reg_confirm_password_input.text)
 
-            TextInput:
-                id: reg_password_input
-                hint_text: "Password"
-                multiline: False
-                password: True
-                size_hint_y: None
-                height: dp(40)
-
-            TextInput:
-                id: reg_confirm_password_input
-                hint_text: "Confirm Password"
-                multiline: False
-                password: True
-                size_hint_y: None
-                height: dp(40)
-
-        BoxLayout:
-            size_hint_y: None
-            height: dp(140)  # 80 + 60
-            spacing: dp(10)
-            pos_hint: {'center_x': .5}
-
-            Button:
-                id: register_button
-                text: "Register"
-                size_hint_y: None
-                height: dp(40)
-                on_press: root.register(reg_username_input.text, reg_email_input.text, reg_password_input.text, reg_confirm_password_input.text)
-
-            Button:
-                text: "Register with Google"
-                size_hint_y: None
-                height: dp(40)
-                on_press: root.register_google()
+                Button:
+                    text: "Register with Google"
+                    size_hint_y: None
+                    height: dp(40)
+                    on_press: root.register_google()
 
 <LoginScreen>:  
-    canvas.before:
-        Color:
-            rgba: 0, 0.3, 0, 1  # Dark green color
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    BoxLayout:
-        orientation: "vertical"
-        padding: dp(20)
-        spacing: dp(10)
-        size_hint_y: None
-        height: self.minimum_height
-        pos_hint: {'top': 1}
-
+    font_name: 'Roboto'
+    font_size: 20
+    text_color: 0.545, 0.341, 0.157, 1
+    BaseScreen:
         BoxLayout:
             orientation: "vertical"
+            padding: dp(20)
+            spacing: dp(10)
             size_hint_y: None
             height: self.minimum_height
-            spacing: dp(10)
-            pos_hint: {'center_x': .5}
+            pos_hint: {'top': 1}
 
-            Label:
-                text: "Login"
-                font_size: "24sp"
-                bold: True
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                pos_hint: {'center_x': .5}
+
+                Label:
+                    text: "Login"
+                    font_name: root.font_name
+                    font_size: root.font_size
+                    color: root.text_color
+                    bold: True
+                    size_hint_y: None
+                    height: dp(40)
+
+                TextInput:
+                    id: email_input
+                    hint_text: "Email"
+                    multiline: False
+                    size_hint_y: None
+                    height: dp(40)
+                    
+                TextInput:
+                    id: password_input
+                    hint_text: "Password"
+                    multiline: False
+                    password: True
+                    size_hint_y: None
+                    height: dp(40)
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(140)  # 80 + 60
+                spacing: dp(10)
+                pos_hint: {'center_x': .5}
+
+                Button:
+                    id: login_button
+                    text: "Login"
+                    size_hint_y: None
+                    height: dp(40)
+                    on_press: root.login(email_input.text, password_input.text)
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(60)
+                spacing: dp(10)
+                pos_hint: {'center_x': .5}
+
+                Button:
+                    id: login_google_button
+                    text: "Login with Google"
+                    size_hint_y: None
+                    height: dp(40)
+                    on_press: root.login_with_google()
+
+            BoxLayout:
+                orientation: "horizontal"
                 size_hint_y: None
                 height: dp(40)
+                spacing: dp(10)
+                pos_hint: {'center_x': .5}
 
-            TextInput:
-                id: email_input
-                hint_text: "Email"
-                multiline: False
-                size_hint_y: None
-                height: dp(40)
-                
-            TextInput:
-                id: password_input
-                hint_text: "Password"
-                multiline: False
-                password: True
-                size_hint_y: None
-                height: dp(40)
-
-        BoxLayout:
-            size_hint_y: None
-            height: dp(140)  # 80 + 60
-            spacing: dp(10)
-            pos_hint: {'center_x': .5}
-
-            Button:
-                id: login_button
-                text: "Login"
-                size_hint_y: None
-                height: dp(40)
-                on_press: root.login(email_input.text, password_input.text)
-
-        BoxLayout:
-            size_hint_y: None
-            height: dp(60)
-            spacing: dp(10)
-            pos_hint: {'center_x': .5}
-
-            Button:
-                id: login_google_button
-                text: "Login with Google"
-                size_hint_y: None
-                height: dp(40)
-                on_press: root.login_with_google()
-
-        BoxLayout:
-            orientation: "horizontal"
-            size_hint_y: None
-            height: dp(40)
-            spacing: dp(10)
-            pos_hint: {'center_x': .5}
-
-            Button:
-                text: "Don't have an account? Register"
-                size_hint_y: None
-                height: dp(40)
-                on_press: app.root.current = "registration"  # Change the root screen to "register"
+                Button:
+                    text: "Don't have an account? Register"
+                    size_hint_y: None
+                    height: dp(40)
+                    on_press: app.root.current = "registration"  # Change the root screen to "register"
 
