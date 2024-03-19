@@ -2,7 +2,8 @@
 
 # Green:
 
-# RGB: (76, 175, 80) - This is a vibrant green color reminiscent of lush vegetation.
+# RGB: rgba: 0.2, 0.5, 0.2, 1.0  # base color
+
 # Brown:
 
 # RGB: (121, 85, 72) - A warm brown color resembling soil or tree bark.
@@ -21,7 +22,7 @@
     text_color: 0, 0, 0.4, 1
     canvas.before:
         Color:
-            rgba: 0.2, 0.5, 0.2, 1.0  # base color
+            rgba: 0.1, 0.25, 0.1, 1.0  # base color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -221,6 +222,10 @@
 
 
 <RegistrationScreen>:
+    font_name: 'Roboto'
+    font_size: 30
+    text_color: 1,1,1, 1
+    button_color: 0.2, 0.07, 0.03, 1
     BaseScreen:
         BoxLayout:
             orientation: "vertical"
@@ -236,6 +241,7 @@
                 height: self.minimum_height
                 spacing: dp(10)
                 pos_hint: {'center_x': .5}
+                padding: [dp(50), dp(50)]
 
                 Label:
                     text: "Registration"
@@ -250,6 +256,8 @@
                     multiline: False
                     size_hint_y: None
                     height: dp(40)
+                    background_color: 1, 1, 1, 0.7  # Adjust the color and transparency as needed                    
+
 
                 TextInput:
                     id: reg_email_input
@@ -257,6 +265,7 @@
                     multiline: False
                     size_hint_y: None
                     height: dp(40)
+                    background_color: 1, 1, 1, 0.7  # Adjust the color and transparency as needed
 
                 TextInput:
                     id: reg_password_input
@@ -265,6 +274,7 @@
                     password: True
                     size_hint_y: None
                     height: dp(40)
+                    background_color: 1, 1, 1, 0.7  # Adjust the color and transparency as needed
 
                 TextInput:
                     id: reg_confirm_password_input
@@ -273,12 +283,14 @@
                     password: True
                     size_hint_y: None
                     height: dp(40)
+                    background_color: 1, 1, 1, 0.7  # Adjust the color and transparency as needed
 
             BoxLayout:
                 size_hint_y: None
                 height: dp(140)  # 80 + 60
                 spacing: dp(10)
                 pos_hint: {'center_x': .5}
+                padding: [dp(80), dp(80)]
 
                 Button:
                     id: register_button
@@ -286,17 +298,23 @@
                     size_hint_y: None
                     height: dp(40)
                     on_press: root.register(reg_username_input.text, reg_email_input.text, reg_password_input.text, reg_confirm_password_input.text)
+                    padding: [dp(80), dp(80)]
+                    background_color: root.button_color  # Adjust the color as needed
 
                 Button:
                     text: "Register with Google"
                     size_hint_y: None
                     height: dp(40)
                     on_press: root.register_google()
+                    padding: [dp(80), dp(80)]
+                    background_color: root.button_color  # Adjust the color as needed
 
 <LoginScreen>:  
     font_name: 'Roboto'
-    font_size: 20
-    text_color: 0.545, 0.341, 0.157, 1
+    font_size: 30
+    text_color: 1,1,1, 1
+    button_color: 0.2, 0.07, 0.03, 1
+    
     BaseScreen:
         BoxLayout:
             orientation: "vertical"
@@ -307,11 +325,15 @@
             pos_hint: {'top': 1}
 
             BoxLayout:
+                
                 orientation: "vertical"
                 size_hint_y: None
                 height: self.minimum_height
                 spacing: dp(10)
                 pos_hint: {'center_x': .5}
+                padding: [dp(50), dp(50)]                    
+                border: [10, 10, 10, 10]  # Adjust the roundness as needed
+
 
                 Label:
                     text: "Login"
@@ -324,11 +346,11 @@
 
                 TextInput:
                     id: email_input
-                    hint_text: "Email"
+                    hint_text: "Email/User"
                     multiline: False
                     size_hint_y: None
                     height: dp(40)
-                    
+                    background_color: 1, 1, 1, 0.7  # Adjust the color and transparency as needed
                 TextInput:
                     id: password_input
                     hint_text: "Password"
@@ -336,43 +358,53 @@
                     password: True
                     size_hint_y: None
                     height: dp(40)
+                    border_radius: [10, 10, 10, 10]  # Adjust the roundness as needed
+                    background_color: 1, 1, 1, 0.7  # Adjust the color and transparency as needed
 
             BoxLayout:
                 size_hint_y: None
                 height: dp(140)  # 80 + 60
                 spacing: dp(10)
                 pos_hint: {'center_x': .5}
-
+                padding: [dp(80), dp(80)] 
                 Button:
+                    border: [10, 10, 10, 10]  # Adjust the roundness as needed
                     id: login_button
                     text: "Login"
                     size_hint_y: None
                     height: dp(40)
                     on_press: root.login(email_input.text, password_input.text)
+                    background_color: root.button_color  # Adjust the color as needed
 
             BoxLayout:
                 size_hint_y: None
                 height: dp(60)
                 spacing: dp(10)
                 pos_hint: {'center_x': .5}
+                padding: [dp(80), dp(80)]                    
 
                 Button:
                     id: login_google_button
-                    text: "Login with Google"
+                    border: [10, 10, 10, 10]  # Adjust the roundness as needed
+                    text: "Continue with Google"
                     size_hint_y: None
                     height: dp(40)
                     on_press: root.login_with_google()
+                    background_color: root.button_color  # Adjust the color as needed
 
             BoxLayout:
                 orientation: "horizontal"
                 size_hint_y: None
-                height: dp(40)
+                height: dp(60)
                 spacing: dp(10)
                 pos_hint: {'center_x': .5}
+                padding: [dp(80), dp(80)]                    
 
                 Button:
                     text: "Don't have an account? Register"
                     size_hint_y: None
                     height: dp(40)
                     on_press: app.root.current = "registration"  # Change the root screen to "register"
+                    background_color: 0.2, 0.07, 0.03, 0.5  # Adjust the color as needed
+                    
 
