@@ -28,10 +28,14 @@ class MyApp(App):
         sm.add_widget(LessonTreeScreen(name='lesson_tree'))
         sm.add_widget(LessonScreen(name='lesson'))
         sm.add_widget(MenuScreen(name='menu'))
+        sm.add_widget(ProfileScreen(name='profile'))
 
         
         return sm
         
+    def get_user(self, user_id):
+        return service.get_user(user_id)
+    
     
     def open_menu(self):
         app = App.get_running_app()
@@ -102,10 +106,7 @@ class LoginScreen(Screen):
             response = app.login_with_username(email, password)
             print(response)
             authenticated = response
-        print("Login successful:", authenticated)
-        print("Login credentials:")
-        print("Email/Username:", email)
-        print("Password:", password)
+    
 
         if authenticated:
             app = App.get_running_app().root
@@ -121,11 +122,7 @@ class RegistrationScreen(Screen):
             return
 
         # Add your registration logic here
-        print("Registration successful")
-        print("Registration credentials:")
-        print("Username:", username)
-        print("Email:", email)
-        print("Password:", password)
+        
         
         # Navigate to login screen
         app = App.get_running_app().root
@@ -247,6 +244,22 @@ class MenuScreen(Screen):
         self.ids.menu_layout.transition = 'slide_right'
         self.ids.menu_layout.transition_duration = 0.2
         
+        app = App.get_running_app()
+        
+        self.ids.menu_layout.clear_widgets()
+        
+        # Create user profile button and bind it to switch to user profile on press
+        user_profile_button = Button(text='User Profile', size_hint_y=None, height=dp(40))
+        user_profile_button.bind(on_press=self.on_profile_button_pressed)
+        self.ids.menu_layout.add_widget(user_profile_button)
+        
+        
+        # Create dashboard button and bind it to switch to dashboard screen on press
+        dashboard_button = Button(text='Dashboard', size_hint_y=None, height=dp(40))
+        dashboard_button.bind(on_press=self.on_dashdoard_button_pressed)
+        self.ids.menu_layout.add_widget(dashboard_button)
+        
+        
 
     def on_menu_button_pressed(self, instance):
         """
@@ -254,6 +267,44 @@ class MenuScreen(Screen):
         """
         app = App.get_running_app()
         app.root.switch_screen(instance.text.lower())
+    
+    def on_profile_button_pressed(self, instance):
+        """
+        Callback function to handle profile button press.
+        """
+        app = App.get_running_app()
+        app.root.current = 'profile'
+    
+    def on_dashdoard_button_pressed(self, instance):
+        """
+        Callback function to handle dashboard button press.
+        """
+        app = App.get_running_app()
+        app.root.current = 'dashboard'
+
+
+class ProfileScreen(Screen):
+    def on_enter(self):
+        """
+        Called when the screen is displayed.
+        """
+        app = App.get_running_app()
+
+        # Clear the existing widgets from the layout
+        self.ids.profile_layout.clear_widgets()
+
+        # Get the user information from the controller
+        user_id = app.user_data.get_user_id()
+        user_info = app.get_user(user_id)
+
+        # Create and add Label widgets for the username and email
+        username_label = Label(text=f"Username: {user_info.username}")
+        email_label = Label(text=f"Email: {user_info.email}")
+
+        # Add the Label widgets to the profile_layout
+        self.ids.profile_layout.add_widget(username_label)
+        self.ids.profile_layout.add_widget(email_label)
+
 
 class UserData():
     def __init__(self):

@@ -101,3 +101,22 @@ def get_lesson_by_id(lesson_id):
     else:
         return lesson
 
+
+
+
+def get_user(user_id):
+    """
+    Function that retrieves a user from the repository based on its user id
+    
+    Args:
+        user_id (int): The id of the user
+    
+    Returns:
+        User: The user object with the given id, or None if it does not exist
+    """
+    user = repository.get_user_by_id(user_id)
+    if user is None:
+        return None
+    else:
+        return user
+

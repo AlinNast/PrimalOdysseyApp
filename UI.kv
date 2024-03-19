@@ -1,3 +1,33 @@
+
+<ProfileScreen>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0.3, 1  # Dark blue color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        id: header
+        size_hint_y: None
+        height: dp(60)
+        padding: dp(10), 0, 0, 0  # Adjust padding to move the button to the top left corner
+        pos_hint: {'top': 1}
+        Button:
+            text: "Menu"
+            size_hint: None, None
+            size: dp(100), dp(40)
+            pos: 0, 0  # Move the button to the top left corner
+            on_press: app.open_menu()
+    BoxLayout:
+        orientation: 'vertical'
+        id: profile_layout
+        Label:
+            text: 'Username:'
+        
+        Label:
+            text: 'Email:'
+        
+
 <MenuScreen>:
     BoxLayout:
         id: menu_layout
@@ -15,19 +45,7 @@
             spacing: dp(10)
             pos_hint: {'center_x': .5}
 
-            Button:
-                text: "User Profile"
-                font_size: "24sp"
-                size_hint_y: None
-                height: dp(40)
-                on_press: app.root.current("profile")
-
-            Button:
-                text: "Dashboard"
-                font_size: "24sp"
-                size_hint_y: None
-                height: dp(40)
-                on_press: app.root.current("dashboard")
+            
 <LessonScreen>:
     canvas.before:
         Color:
